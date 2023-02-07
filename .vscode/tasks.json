@@ -1,0 +1,52 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "[LAB] start",
+            "type": "shell",
+            "command": "${PWD}/scripts/lab-start.sh"
+        },
+        {
+            "label": "[LAB] stop",
+            "type": "shell",
+            "command": "${PWD}/scripts/lab-stop.sh"
+        },
+        {
+            "label": "[RECOVERY][IMAGES] load",
+            "type": "shell",
+            "command": "${PWD}/scripts/recovery-images-load.sh"
+        },
+        {
+            "label": "[RECOVERY][IMAGES] prune",
+            "type": "shell",
+            "command": "${PWD}/scripts/recovery-images-prune.sh"
+        },
+        {
+            "label": "[RECOVERY][IMAGES] save",
+            "type": "shell",
+            "command": "${PWD}/scripts/recovery-images-save.sh"
+        },
+        {
+            "label": "[RECOVERY][VOLUMES] create",
+            "type": "shell",
+            "command": "${PWD}/scripts/recovery-volumes-create.sh"
+        },
+        {
+            "label": "[RECOVERY][VOLUMES] load",
+            "type": "shell",
+            "command": "${PWD}/scripts/recovery-volumes-load.sh"
+        },
+        {
+            "label": "[RECOVERY][VOLUMES] prune",
+            "type": "shell",
+            "command": "${PWD}/scripts/recovery-volumes-prune.sh"
+        },
+        {
+            "label": "[RECOVERY][VOLUMES] save",
+            "type": "shell",
+            "command": "${PWD}/scripts/recovery-volumes-save.sh"
+        }
+    ]
+}

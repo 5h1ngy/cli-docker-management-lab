@@ -1,0 +1,35 @@
+version: '3.6'
+
+volumes:
+  net-gateway-lab-volume-data:
+    external: true
+  net-gateway-lab-volume-letsencrypt:
+    external: true
+
+networks:
+
+  net-lab:
+    name: net-lab-${NET_LAB_SUBNET}
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${NET_LAB_SUBNET}
+          gateway: ${NET_LAB_GATEWAY}
+
+services:
+
+  net-gateway-lab:
+    image: 'jc21/nginx-proxy-manager:github-pr-1844'
+    container_name: net-gateway-lab
+    restart: unless-stopped
+    networks:
+      net-lab:
+        ipv4_address: ${NET_GATEWAY_LAB_IP}
+    ports:
+      - 81:81
+      - 80:80
+      - 22:22
+    volumes:
+      - net-gateway-lab-volume-data:/data
+      - net-gateway-lab-volume-letsencrypt:/etc/letsencrypt

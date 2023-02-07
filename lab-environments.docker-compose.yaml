@@ -1,0 +1,54 @@
+version: '3.6'
+
+volumes:
+  env-git-vscode-volume:
+    external: true
+  env-node-yarn-16.18.0-vscode-volume:
+    external: true
+  env-ssh-volume:
+    external: true
+
+networks:
+  net-lab:
+    name: net-lab-${NET_LAB_SUBNET}
+    external: true
+
+services:
+
+  env-git:
+    build:
+      context: ${PWD}
+      dockerfile: Dockerfile.environments
+      target: env-git
+    image: env-git:0.0.1
+    container_name: 'env-git'
+    restart: unless-stopped
+    networks:
+      net-lab:
+        ipv4_address: ${NET_ENVIRONMENTS_GIT_IP}
+    volumes:
+      - env-git-vscode-volume:/root
+      - env-ssh-volume:/root/.ssh/
+      - ${ENV_DIR_CONFIGS}/credentials/.gitconfig:/root/.gitconfig
+      - ${ENV_GIT_MOUNT_VOLUME}:/root/project
+    command: [ "sleep", "infinity" ]
+
+  env-node-yarn-16.18.0:
+    build:
+      context: ${PWD}
+      dockerfile: Dockerfile.environments
+      target: env-node-yarn
+      args:
+        NODE_VERSION: 16.18.0
+    image: env-node-yarn:16.18.0
+    container_name: 'env-node-yarn'
+    restart: unless-stopped
+    networks:
+      net-lab:
+        ipv4_address: ${NET_ENVIRONMENTS_NODE_YARN_V16_18_0_IP}
+    volumes:
+      - env-node-yarn-16.18.0-vscode-volume:/root
+      - env-ssh-volume:/root/.ssh/
+      - ${ENV_DIR_CONFIGS}/credentials/.gitconfig:/root/.gitconfig
+      - ${ENV_NODE_YARN_V16_18_0_MOUNT_VOLUME}:/root/project
+    command: [ "sleep", "infinity" ]
