@@ -1,0 +1,37 @@
+version: '3.6'
+
+volumes:
+  env-vscode-volume:
+    external: true
+  env-ssh-volume:
+    external: true
+
+networks:
+  net-lab:
+    name: net-lab-${NET_LAB_SUBNET}
+    external: true
+
+services:
+
+  env-python3-node-yarn-20.10.0:
+    build:
+      context: ${PWD}
+      dockerfile: ./docker/environments.Dockerfile
+      target: env-python3-node-yarn-v4
+      args:
+        NODE_VERSION: '20.10.0'
+        DEV_PORT: ${NET_ENVIRONMENTS_PYTHON3_NODE_YARN_V20_10_PORT}
+    image: env-python3-node-yarn:20.10.0
+    container_name: 'env-python3-node-yarn-v20.10.0'
+    restart: unless-stopped
+    ports:
+      - ${NET_ENVIRONMENTS_PYTHON3_NODE_YARN_V20_10_PORT}:${NET_ENVIRONMENTS_PYTHON3_NODE_YARN_V20_10_PORT}
+    networks:
+      net-lab:
+        ipv4_address: ${NET_ENVIRONMENTS_PYTHON3_NODE_YARN_V20_10_IP}
+    volumes:
+      - env-vscode-volume:/root
+      - env-ssh-volume:/root/.ssh/
+      - ${ENV_DIR_CONFIGS}/credentials/.gitconfig:/root/.gitconfig
+      - ${ENV_PYTHON3_NODE_YARN_V20_10_MOUNT_VOLUME}:/root/project
+    command: [ "sleep", "infinity" ]

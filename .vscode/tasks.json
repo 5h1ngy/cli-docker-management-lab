@@ -4,49 +4,44 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "[LAB] start",
+            "label": "[LAB] up",
             "type": "shell",
-            "command": "${PWD}/scripts/lab-start.sh"
+            "command": "${PWD}/scripts/lab-up.sh"
         },
         {
-            "label": "[LAB] stop",
+            "label": "[LAB] down",
             "type": "shell",
-            "command": "${PWD}/scripts/lab-stop.sh"
+            "command": "${PWD}/scripts/lab-down.sh"
         },
         {
-            "label": "[RECOVERY][IMAGES] load",
+            "label": "[LAB] prune",
             "type": "shell",
-            "command": "${PWD}/scripts/recovery-images-load.sh"
+            "command": "${PWD}/scripts/lab-prune.sh"
         },
         {
-            "label": "[RECOVERY][IMAGES] prune",
+            "label": "[IMAGES] load",
             "type": "shell",
-            "command": "${PWD}/scripts/recovery-images-prune.sh"
+            "command": "${PWD}/scripts/images-load.sh"
         },
         {
-            "label": "[RECOVERY][IMAGES] save",
+            "label": "[IMAGES] save",
             "type": "shell",
-            "command": "${PWD}/scripts/recovery-images-save.sh"
+            "command": "${PWD}/scripts/images-save.sh"
         },
         {
-            "label": "[RECOVERY][VOLUMES] create",
+            "label": "[VOLUMES] create",
             "type": "shell",
-            "command": "${PWD}/scripts/recovery-volumes-create.sh"
+            "command": "${PWD}/scripts/volumes-create.sh"
         },
         {
-            "label": "[RECOVERY][VOLUMES] load",
+            "label": "[VOLUMES] load",
             "type": "shell",
-            "command": "${PWD}/scripts/recovery-volumes-load.sh"
+            "command": "${PWD}/scripts/volumes-load.sh"
         },
         {
-            "label": "[RECOVERY][VOLUMES] prune",
+            "label": "[VOLUMES] save",
             "type": "shell",
-            "command": "${PWD}/scripts/recovery-volumes-prune.sh"
-        },
-        {
-            "label": "[RECOVERY][VOLUMES] save",
-            "type": "shell",
-            "command": "${PWD}/scripts/recovery-volumes-save.sh"
+            "command": "${PWD}/scripts/volumes-save.sh"
         }
     ]
 }

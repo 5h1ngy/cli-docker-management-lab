@@ -1,0 +1,63 @@
+version: '3.6'
+
+volumes:
+  srv-gitea-volume:
+    external: true
+  srv-gitea-timezone-volume:
+    external: true
+  srv-gitea-localtime-volume:
+    external: true
+  srv-gitea-db-volume:
+    external: true
+
+networks:
+  net-lab:
+    name: net-lab-${NET_LAB_SUBNET}
+    external: true
+
+services:
+
+  srv-excalidraw:
+    image: excalidraw/excalidraw:sha-4bfc5bb
+    container_name: 'srv-excalidraw'
+    restart: unless-stopped
+    networks:
+      net-lab:
+        ipv4_address: ${NET_SRVICES_EXCALIDRAW_IP}
+
+  srv-gitea-db:
+    image: mysql:8
+    container_name: 'srv-gitea-db'
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=gitea
+      - MYSQL_DATABASE=gitea
+    networks:
+      net-lab:
+        ipv4_address: ${NET_SRVICES_GITEA_DB_IP}
+    volumes:
+      - srv-gitea-db-volume:/var/lib/mysql
+
+  srv-gitea:
+    image: gitea/gitea:1.21.3
+    container_name: srv-gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=mysql
+      - GITEA__database__HOST=${NET_SRVICES_GITEA_DB_IP}:3306
+      - GITEA__database__NAME=gitea
+      - GITEA__database__USER=gitea
+      - GITEA__database__PASSWD=gitea
+    restart: always
+    networks:
+      net-lab:
+        ipv4_address: ${NET_SRVICES_GITEA_IP}
+    volumes:
+      - srv-gitea-volume:/data
+      - srv-gitea-timezone-volume:/etc/timezone:ro
+      - srv-gitea-localtime-volume:/etc/localtime:ro
+    depends_on:
+      - srv-gitea-db
