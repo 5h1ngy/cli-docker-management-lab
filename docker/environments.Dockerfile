@@ -30,6 +30,7 @@ RUN cd /opt \
 ENV PATH=/opt/node-v${NODE_VERSION}-linux-x64/bin:${PATH}
 RUN apt-get install -y python3.11-venv
 RUN corepack enable
+CMD ["/usr/sbin/sshd", "-D"]
 
 
 
