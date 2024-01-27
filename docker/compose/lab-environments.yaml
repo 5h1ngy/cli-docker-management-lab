@@ -26,6 +26,7 @@ services:
     restart: unless-stopped
     ports:
       - ${NET_ENVIRONMENTS_PYTHON3_NODE_YARN_V20_10_PORT}:${NET_ENVIRONMENTS_PYTHON3_NODE_YARN_V20_10_PORT}
+      - 33556:22
     networks:
       net-lab:
         ipv4_address: ${NET_ENVIRONMENTS_PYTHON3_NODE_YARN_V20_10_IP}
