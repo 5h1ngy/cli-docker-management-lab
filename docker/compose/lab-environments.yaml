@@ -9,7 +9,6 @@ volumes:
 networks:
   net-lab:
     name: net-lab-${NET_LAB_SUBNET}
-    external: true
 
 services:
 
